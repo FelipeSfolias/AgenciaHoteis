@@ -1,0 +1,168 @@
+<main>
+  <!-- ===================== A parede da recepção ===================== -->
+  <section class="abertura">
+    <div class="parede abertura__conteudo">
+      <div class="abertura__texto">
+        <h1>Quadro de chaves</h1>
+        <p class="abertura__linha">
+          {{ nomeHotel }} · {{ cidade }} · {{ totalDeQuartos }} quartos
+        </p>
+        <p class="abertura__conversa">
+          Aqui está a casa inteira. Chave no gancho quer dizer quarto livre; gancho vazio quer
+          dizer que alguém já pegou. Hoje sobraram {{ quartosComChave }}, e a diária mais barata
+          é de {{ menorDiaria }} reais.
+        </p>
+
+        @if (convenioAtivo) {
+          <p class="abertura__convenio">
+            {{ nomeHospede }}, o convênio está ativo: toda diária já aparece com 10% a menos.
+          </p>
+        }
+      </div>
+
+      <!-- O retrato pendurado ao lado do quadro, como em toda recepção. -->
+      <figure class="retrato">
+        <img [src]="fotoRecepcao" alt="Lavoura ao fim da tarde" />
+        <figcaption>Fim de tarde na lavoura</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ===================== O balcão de controles ===================== -->
+  <section class="balcao-controles">
+    <div class="parede balcao-controles__conteudo">
+      <div class="contador">
+        <span class="contador__nome">Hóspedes</span>
+        <div class="contador__caixa">
+          <button
+            type="button"
+            aria-label="Menos hóspedes"
+            [disabled]="hospedesNoMinimo"
+            (click)="diminuirHospedes()"
+          >
+            −
+          </button>
+          <span class="contador__numero">{{ hospedes }}</span>
+          <button
+            type="button"
+            aria-label="Mais hóspedes"
+            [disabled]="hospedesNoMaximo"
+            (click)="aumentarHospedes()"
+          >
+            +
+          </button>
+        </div>
+      </div>
+
+      <div class="contador">
+        <span class="contador__nome">Diárias</span>
+        <div class="contador__caixa">
+          <button
+            type="button"
+            aria-label="Menos diárias"
+            [disabled]="diariasNoMinimo"
+            (click)="diminuirDiarias()"
+          >
+            −
+          </button>
+          <span class="contador__numero">{{ diarias }}</span>
+          <button
+            type="button"
+            aria-label="Mais diárias"
+            [disabled]="diariasNoMaximo"
+            (click)="aumentarDiarias()"
+          >
+            +
+          </button>
+        </div>
+      </div>
+
+      <button
+        class="chave-geral"
+        type="button"
+        [class.chave-geral--ligada]="somenteComChave"
+        [attr.aria-pressed]="somenteComChave"
+        (click)="alternarChaveGeral()"
+      >
+        <span class="chave-geral__marca" aria-hidden="true"></span>
+        Só os que têm chave
+      </button>
+
+      <p class="balcao-controles__conta">
+        Mostrando {{ quartosNoQuadro.length }} de {{ totalDeQuartos }} quartos
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== O quadro ===================== -->
+  <section class="quadro" id="quadro">
+    <div class="parede">
+      @if (quartosSeparados.length > 0) {
+        <div class="separados">
+          <h2 class="separados__titulo">Separados por você</h2>
+          <ul>
+            @for (quarto of quartosSeparados; track quarto.numero) {
+              <li>
+                <button type="button" (click)="separarQuarto(quarto)">
+                  Quarto {{ quarto.numero }} · {{ quarto.categoria }}
+                  <span aria-hidden="true">×</span>
+                </button>
+              </li>
+            }
+          </ul>
+        </div>
+      }
+
+      <div class="quadro__grade">
+        <div class="quadro__ganchos">
+          @for (quarto of quartosNoQuadro; track quarto.numero) {
+            <app-chave-quarto
+              [quarto]="quarto"
+              [hospedes]="hospedes"
+              [convenioAtivo]="convenioAtivo"
+              [selecionado]="quarto === quartoNaFicha"
+              [apagado]="quartoNaFicha !== null && quarto !== quartoNaFicha"
+              (verFicha)="abrirFicha($event)"
+              (alternarChave)="tirarOuDevolverChave($event)"
+              (alternarFavorito)="separarQuarto($event)"
+            ></app-chave-quarto>
+          } @empty {
+            <p class="quadro__vazio">
+              Nenhuma chave no gancho agora. Desligue a chave geral do balcão para ver a casa
+              inteira.
+            </p>
+          }
+        </div>
+
+        <aside class="quadro__ficha" aria-label="Ficha do quarto">
+          @if (quartoNaFicha) {
+            <app-ficha-quarto
+              [quarto]="quartoNaFicha"
+              [hospedes]="hospedes"
+              [diarias]="diarias"
+              [convenioAtivo]="convenioAtivo"
+              (fechar)="fecharFicha()"
+            ></app-ficha-quarto>
+          } @else {
+            <p class="ficha-vazia">
+              <strong>Nenhuma ficha aberta.</strong> Clique em <strong>Ver ficha</strong> em
+              qualquer plaqueta para ver a foto do quarto, o que está incluso e o total da estadia.
+            </p>
+          }
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== O aviso pregado na recepção ===================== -->
+  <section class="aviso" id="recepcao">
+    <div class="parede aviso__conteudo">
+      <h2 class="aviso__titulo">Aviso na recepção</h2>
+      <ol class="aviso__lista">
+        @for (regra of regrasDaCasa; track regra) {
+          <li>{{ regra }}</li>
+        }
+      </ol>
+    </div>
+  </section>
+</main>

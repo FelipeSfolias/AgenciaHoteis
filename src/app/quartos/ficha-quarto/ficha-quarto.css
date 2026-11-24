@@ -1,0 +1,228 @@
+:host {
+  display: block;
+}
+
+/* A ficha é uma folha de papel pousada sobre a tábua. */
+.ficha {
+  padding: 1.3rem 1.4rem 1.5rem;
+  border-radius: 2px;
+  background-color: var(--papel);
+  color: var(--papel-tinta);
+  box-shadow:
+    0 1px 0 #ffffff inset,
+    0 16px 30px -14px rgba(0, 0, 0, 0.8);
+  animation: pousar 0.4s var(--curva-mola) both;
+}
+
+@keyframes pousar {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) rotate(-0.6deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.ficha__topo {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 2px solid var(--papel-tinta);
+}
+
+.ficha__quarto {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* Titulo das secoes internas da ficha. */
+.ficha__secao {
+  margin: 0;
+  color: var(--papel-tinta-fraca);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.ficha__fechar {
+  display: grid;
+  width: 1.9rem;
+  height: 1.9rem;
+  flex: none;
+  place-items: center;
+  border: 1.5px solid var(--papel-tinta);
+  border-radius: 2px;
+  background-color: transparent;
+  color: var(--papel-tinta);
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.ficha__fechar svg {
+  width: 0.95rem;
+  height: 0.95rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.ficha__fechar:hover {
+  background-color: var(--papel-tinta);
+  color: var(--papel);
+}
+
+/* A fotografia vem grampeada na ficha, com a margem branca de uma cópia. */
+.ficha__foto {
+  position: relative;
+  margin: 1rem 0 0;
+  padding: 6px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 10px -4px rgba(0, 0, 0, 0.55);
+}
+
+.ficha__foto img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  background-color: var(--papel-linha);
+}
+
+/* O grampo que prende a cópia na ficha. */
+.ficha__foto::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 1.4rem;
+  width: 20px;
+  height: 9px;
+  border: 2px solid #7b8290;
+  border-bottom-color: transparent;
+  border-radius: 2px 2px 0 0;
+  transform: rotate(-4deg);
+}
+
+.ficha__descricao {
+  margin-top: 1rem;
+  font-family: var(--fonte-ficha);
+  font-size: 0.87rem;
+  line-height: 1.75;
+}
+
+/* ---- Campos preenchidos ---- */
+
+.campos {
+  margin-top: 1.1rem;
+  border-top: 1px solid var(--papel-linha);
+}
+
+.campo {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.42rem;
+  border-bottom: 1px solid var(--papel-linha);
+}
+
+.campo__nome {
+  color: var(--papel-tinta-fraca);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.campo__valor {
+  font-family: var(--fonte-ficha);
+  font-size: 0.85rem;
+  text-align: right;
+}
+
+.campo--total {
+  margin-top: 0.35rem;
+  border-top: 2px solid var(--papel-tinta);
+  border-bottom: 2px solid var(--papel-tinta);
+  padding-block: 0.6rem;
+}
+
+.campo--total .campo__nome {
+  color: var(--papel-tinta);
+  font-size: 0.82rem;
+}
+
+.campo--total .campo__valor {
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+/* ---- Incluso ---- */
+
+.incluso {
+  margin-top: 1.2rem;
+}
+
+.incluso ul {
+  margin-top: 0.55rem;
+}
+
+/* Cada item é uma linha datilografada, marcada com um traço. */
+.incluso li {
+  padding-left: 1.2rem;
+  padding-block: 0.16rem;
+  font-family: var(--fonte-ficha);
+  font-size: 0.84rem;
+  text-indent: -1.2rem;
+}
+
+.incluso li::before {
+  content: '—';
+  display: inline-block;
+  width: 1.2rem;
+  color: var(--papel-tinta-fraca);
+  text-indent: 0;
+}
+
+.incluso__vazio {
+  color: var(--papel-tinta-fraca);
+}
+
+/* ---- Recados ---- */
+
+/* Recado anotado na ficha: caixa carimbada, na tinta do estado. */
+.recado {
+  margin-top: 0.85rem;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--papel-tinta-fraca);
+  border-radius: 2px;
+  color: var(--papel-tinta-fraca);
+  font-family: var(--fonte-ficha);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.recado--bom {
+  border-color: var(--carimbo-livre);
+  background-color: rgba(46, 107, 62, 0.09);
+  color: #1d4d2c;
+}
+
+.recado--ruim {
+  border-color: var(--carimbo-ocupado);
+  background-color: rgba(158, 43, 32, 0.09);
+  color: var(--carimbo-ocupado);
+}
+
+.recado--atencao {
+  border-color: var(--latao-escuro);
+  background-color: rgba(125, 98, 36, 0.11);
+  color: #634d1b;
+}

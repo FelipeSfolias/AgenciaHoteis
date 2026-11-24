@@ -1,0 +1,93 @@
+<article
+  class="chaveiro"
+  [class.chaveiro--selecionado]="selecionado"
+  [class.chaveiro--apagado]="apagado"
+  [class.chaveiro--vago]="!quarto.disponivel"
+>
+  <!-- O gancho fica sempre; a chave é que pende dele, ou não. -->
+  <div class="gancho">
+    <svg class="gancho__ferro" viewBox="0 0 40 24" aria-hidden="true">
+      <path d="M11 3v8a9 9 0 0 0 18 0V8" />
+      <circle cx="11" cy="3" r="2.4" />
+    </svg>
+
+    @if (quarto.disponivel) {
+      <svg class="chave" viewBox="0 0 30 86" aria-hidden="true">
+        <circle class="chave__anel" cx="15" cy="14" r="10" />
+        <rect x="13" y="24" width="4.5" height="50" rx="1.2" />
+        <rect x="17.5" y="58" width="7" height="4" rx="1" />
+        <rect x="17.5" y="67" width="10" height="4" rx="1" />
+      </svg>
+    }
+  </div>
+
+  <!-- A plaqueta esmaltada: tudo que o hóspede precisa saber, sempre visível. -->
+  <div class="placa">
+    <button
+      class="separar"
+      type="button"
+      [class.separar--marcada]="quarto.favorito"
+      [attr.aria-pressed]="quarto.favorito"
+      [attr.aria-label]="
+        quarto.favorito
+          ? 'Tirar o quarto ' + quarto.numero + ' dos separados'
+          : 'Separar o quarto ' + quarto.numero
+      "
+      (click)="alternarFavorito.emit(quarto)"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4.2 10.6 10.6 4.2H19a.8.8 0 0 1 .8.8v8.4l-6.4 6.4a1.1 1.1 0 0 1-1.6 0l-7.6-7.6a1.1 1.1 0 0 1 0-1.6z" />
+        <circle cx="15.6" cy="8.4" r="1.5" />
+      </svg>
+    </button>
+
+    <p class="placa__numero">{{ quarto.numero }}</p>
+    <p class="placa__andar">{{ quarto.andar }}</p>
+    <h3 class="placa__categoria">{{ quarto.categoria }}</h3>
+
+    <dl class="dados">
+      <div>
+        <dt>Cabe</dt>
+        <dd>{{ quarto.capacidade }} pessoas</dd>
+      </div>
+      <div>
+        <dt>Área</dt>
+        <dd>{{ quarto.metrosQuadrados }} m²</dd>
+      </div>
+      <div>
+        <dt>Camas</dt>
+        <dd>{{ quarto.camas }}</dd>
+      </div>
+    </dl>
+
+    @if (!cabeOGrupo) {
+      <p class="nota-capacidade">
+        Cabe {{ quarto.capacidade }}, você marcou {{ hospedes }} no balcão.
+      </p>
+    }
+
+    <p class="diaria">{{ quarto.precoDiaria | currency: 'BRL' }}</p>
+    @if (convenioAtivo) {
+      <p class="diaria__convenio">{{ precoConvenio | currency: 'BRL' }} com convênio</p>
+    } @else {
+      <p class="diaria__nota">por diária</p>
+    }
+
+    @if (!quarto.disponivel) {
+      <p class="carimbo">Ocupado</p>
+    }
+
+    <div class="acoes">
+      <button class="botao-placa" type="button" (click)="verFicha.emit(quarto)">Ver ficha</button>
+      <button
+        class="botao-placa botao-placa--cheio"
+        type="button"
+        [disabled]="!cabeOGrupo && quarto.disponivel"
+        (click)="alternarChave.emit(quarto)"
+      >
+        {{ quarto.disponivel ? 'Tirar a chave' : 'Devolver a chave' }}
+      </button>
+    </div>
+
+  </div>
+</article>

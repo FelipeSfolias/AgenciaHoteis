@@ -1,0 +1,378 @@
+:host {
+  display: block;
+}
+
+/* ===================== Parede da recepção ===================== */
+
+.abertura {
+  padding-block: clamp(1.25rem, 2.4vw, 1.7rem);
+}
+
+.abertura__conteudo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 15.5rem;
+  align-items: center;
+  gap: 3rem;
+}
+
+.abertura__linha {
+  margin-top: 0.5rem;
+  color: var(--latao-claro);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.abertura__conversa {
+  max-width: 56ch;
+  margin-top: 0.75rem;
+  color: var(--sobre-tabua-fraco);
+  font-size: 0.98rem;
+}
+
+.abertura__convenio {
+  display: inline-block;
+  margin-top: 0.85rem;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--carimbo-livre);
+  border-radius: 2px;
+  background-color: rgba(46, 107, 62, 0.18);
+  color: #a7dcb6;
+  font-size: 0.85rem;
+}
+
+/* Retrato pendurado: moldura de madeira, levemente torto na parede. */
+.retrato {
+  margin: 0;
+  padding: 0.5rem 0.5rem 0.4rem;
+  border: 1px solid var(--madeira-clara);
+  background-color: var(--madeira);
+  box-shadow: 0 14px 24px -14px rgba(0, 0, 0, 0.9);
+  transform: rotate(-1.2deg);
+}
+
+.retrato img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.retrato figcaption {
+  padding-top: 0.4rem;
+  color: #e6d8c6;
+  font-size: 0.68rem;
+  text-align: center;
+}
+
+/* ===================== Balcão de controles ===================== */
+
+/* A faixa de controles e o balcao de madeira da recepcao. */
+.balcao-controles {
+  border-top: 2px solid var(--madeira-clara);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.35);
+  background-color: var(--madeira);
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0 6px,
+    rgba(0, 0, 0, 0.09) 6px 7px,
+    transparent 7px 19px
+  );
+}
+
+.balcao-controles__conteudo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1.1rem 2.25rem;
+  padding-block: 1rem;
+}
+
+.contador__nome {
+  display: block;
+  margin-bottom: 0.3rem;
+  color: #f0e6da;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.contador__caixa {
+  display: inline-flex;
+  align-items: stretch;
+  border: 1.5px solid var(--latao);
+  border-radius: 2px;
+}
+
+.contador__caixa button {
+  width: 2.1rem;
+  border: none;
+  background-color: transparent;
+  color: var(--latao-claro);
+  font-size: 1.15rem;
+  line-height: 1;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.contador__caixa button:hover:not(:disabled) {
+  background-color: var(--latao);
+  color: var(--tabua-fundo);
+}
+
+.contador__caixa button:disabled {
+  color: var(--latao-escuro);
+  cursor: not-allowed;
+}
+
+.contador__numero {
+  display: grid;
+  min-width: 2.4rem;
+  place-items: center;
+  border-inline: 1.5px solid var(--latao);
+  color: #f7f0e6;
+  font-size: 1rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Chave geral: um interruptor de quadro, com a marca que acende. */
+.chave-geral {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 0.95rem;
+  border: 1.5px solid var(--latao);
+  border-radius: 2px;
+  background-color: transparent;
+  color: #f7f0e6;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: background-color 0.15s ease;
+}
+
+.chave-geral__marca {
+  width: 0.85rem;
+  height: 0.85rem;
+  border: 1.5px solid var(--latao);
+  border-radius: 50%;
+  background-color: transparent;
+  transition: background-color 0.15s ease;
+}
+
+.chave-geral:hover {
+  background-color: rgba(0, 0, 0, 0.22);
+}
+
+.chave-geral--ligada {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.chave-geral--ligada .chave-geral__marca {
+  background-color: var(--latao-claro);
+  box-shadow: 0 0 0 2px rgba(217, 188, 114, 0.25);
+}
+
+.balcao-controles__conta {
+  margin-left: auto;
+  color: #e2d3c2;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ===================== O quadro ===================== */
+
+.quadro {
+  padding-top: 1rem;
+}
+
+.separados {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.55rem 1.1rem;
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 1rem;
+  border: 1px dashed var(--latao-escuro);
+  border-radius: 2px;
+}
+
+.separados__titulo {
+  color: var(--sobre-tabua-fraco);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.separados ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.separados button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.65rem;
+  border: 1.5px solid var(--anel-separado);
+  border-radius: 2px;
+  background-color: transparent;
+  color: #f0b8bb;
+  font-size: 0.82rem;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.separados button:hover {
+  background-color: var(--anel-separado);
+  color: #ffffff;
+}
+
+.quadro__grade {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 22rem;
+  align-items: start;
+  gap: 2rem;
+}
+
+/* Enquanto nenhuma ficha esta aberta nao existe segunda coluna: o aviso vira
+   uma tira fina acima do quadro. */
+.quadro__grade:has(.ficha-vazia) {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem;
+}
+
+.quadro__ficha:has(.ficha-vazia) {
+  order: -1;
+}
+
+/* As plaquetas penduradas, três por fileira como num quadro de verdade. */
+.quadro__ganchos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem 1.25rem;
+}
+
+
+.quadro__ficha {
+  position: sticky;
+  top: 6.5rem;
+}
+
+.quadro__vazio {
+  grid-column: 1 / -1;
+  padding: 3rem 1.5rem;
+  border: 1px dashed var(--latao-escuro);
+  color: var(--sobre-tabua-fraco);
+  text-align: center;
+}
+
+.ficha-vazia {
+  padding: 0.7rem 1rem;
+  border: 1px dashed var(--latao-escuro);
+  border-radius: 2px;
+  color: var(--sobre-tabua-fraco);
+  font-size: 0.88rem;
+}
+
+.ficha-vazia strong {
+  color: var(--sobre-tabua);
+}
+
+/* ===================== Aviso na recepção ===================== */
+
+.aviso {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  padding-block: clamp(2rem, 4vw, 3rem);
+  background-color: var(--tabua-fundo);
+}
+
+.aviso__conteudo {
+  display: grid;
+  grid-template-columns: 14rem minmax(0, 1fr);
+  gap: 2rem;
+}
+
+.aviso__titulo {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Lista numerada à mão, como um aviso datilografado e pregado no quadro. */
+.aviso__lista {
+  margin: 0;
+  padding: 0;
+  counter-reset: regra;
+  list-style: none;
+}
+
+.aviso__lista li {
+  display: flex;
+  gap: 0.9rem;
+  padding-block: 0.6rem;
+  border-top: 1px solid var(--tabua-aresta);
+  color: var(--sobre-tabua-fraco);
+  font-family: var(--fonte-ficha);
+  font-size: 0.87rem;
+  counter-increment: regra;
+}
+
+.aviso__lista li::before {
+  content: counter(regra) '.';
+  flex: none;
+  color: var(--latao-claro);
+  font-weight: 700;
+}
+
+.aviso__lista li:last-child {
+  border-bottom: 1px solid var(--tabua-aresta);
+}
+
+/* ===================== Telas menores ===================== */
+
+@media (max-width: 1100px) {
+  .quadro__grade {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .quadro__ficha {
+    position: static;
+    order: -1;
+  }
+
+  .quadro__ganchos {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 880px) {
+  .abertura__conteudo {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .retrato {
+    max-width: 15rem;
+  }
+
+  .aviso__conteudo {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 620px) {
+  .quadro__ganchos {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+  }
+
+  .balcao-controles__conta {
+    width: 100%;
+    margin-left: 0;
+  }
+}

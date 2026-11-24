@@ -1,0 +1,328 @@
+:host {
+  display: block;
+}
+
+.chaveiro {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ---- Gancho de latão e a chave pendurada ---- */
+
+.gancho {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 86px;
+  justify-content: center;
+  padding-top: 8px;
+}
+
+/* O trilho de latao onde os ganchos sao parafusados. Ele avanca meia
+   goteira para cada lado, entao as celulas vizinhas emendam num trilho so. */
+.gancho::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -0.625rem;
+  left: -0.625rem;
+  height: 7px;
+  border-radius: 1px;
+  background-image: linear-gradient(
+    180deg,
+    var(--latao-claro) 0 2px,
+    var(--latao) 2px 5px,
+    var(--latao-escuro) 5px 7px
+  );
+}
+
+.gancho__ferro {
+  position: absolute;
+  top: 5px;
+  width: 40px;
+  height: 24px;
+  fill: none;
+  stroke: var(--latao);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.gancho__ferro circle {
+  fill: var(--latao-escuro);
+  stroke-width: 1.5;
+}
+
+.chave {
+  position: relative;
+  width: 24px;
+  height: 69px;
+  margin-top: 6px;
+  fill: var(--latao);
+  /* O balanço sai do anel, que é onde a chave toca o gancho. */
+  transform-origin: 50% 16%;
+  animation: balancar 2.6s var(--curva-mola) both;
+}
+
+.chave__anel {
+  fill: none;
+  stroke: var(--latao-claro);
+  stroke-width: 3.5;
+}
+
+/* O anel vermelho marca a chave que o hóspede separou. */
+.chaveiro:has(.separar--marcada) .chave__anel {
+  stroke: var(--anel-separado);
+  stroke-width: 4.5;
+}
+
+@keyframes balancar {
+  0% {
+    transform: rotate(-11deg);
+  }
+  45% {
+    transform: rotate(6deg);
+  }
+  75% {
+    transform: rotate(-2.5deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.chaveiro:hover .chave {
+  animation: balancar 1.6s var(--curva-mola) both;
+}
+
+/* Gancho vazio: fica só o ferro e a sombra do que não está lá. */
+.chaveiro--vago .gancho::after {
+  content: '';
+  position: absolute;
+  top: 28px;
+  width: 22px;
+  height: 52px;
+  border: 1.5px dashed rgba(176, 141, 63, 0.38);
+  border-radius: 11px 11px 4px 4px;
+}
+
+/* ---- Plaqueta esmaltada ---- */
+
+.placa {
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex: 1;
+  flex-direction: column;
+  padding: 1.1rem 1.2rem 1.25rem;
+  border: 2.5px solid var(--esmalte-aro);
+  border-radius: 3px;
+  background-color: var(--esmalte);
+  /* Brilho do esmalte vitrificado, vindo do canto superior esquerdo. */
+  background-image: linear-gradient(158deg, #ffffff 0%, rgba(255, 255, 255, 0) 46%);
+  color: var(--esmalte-tinta);
+  box-shadow:
+    0 2px 0 var(--esmalte-sombra),
+    0 10px 22px -12px rgba(0, 0, 0, 0.7);
+}
+
+/* A plaqueta escolhida fecha em tinta cheia; o verde e so do convenio. */
+.chaveiro--selecionado .placa {
+  border-color: var(--esmalte-tinta);
+  box-shadow:
+    0 2px 0 var(--esmalte-sombra),
+    0 0 0 3px var(--esmalte-tinta),
+    0 14px 28px -12px rgba(0, 0, 0, 0.75);
+}
+
+.chaveiro--vago .placa {
+  background-color: var(--esmalte-sombra);
+}
+
+/* Anel de separar, no canto da plaqueta */
+
+/* Etiqueta que se prende na chave para separar o quarto. */
+.separar {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.8rem;
+  display: grid;
+  width: 2.05rem;
+  height: 2.05rem;
+  place-items: center;
+  border: 1.5px solid var(--esmalte-sombra);
+  border-radius: 3px;
+  background-color: transparent;
+  color: var(--esmalte-tinta-fraca);
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.separar svg {
+  width: 1.2rem;
+  height: 1.2rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linejoin: round;
+}
+
+.separar:hover {
+  border-color: var(--anel-separado);
+  color: var(--anel-separado);
+}
+
+.separar--marcada {
+  border-color: var(--anel-separado);
+  background-color: rgba(176, 36, 44, 0.1);
+  color: var(--anel-separado);
+}
+
+.separar--marcada svg path {
+  fill: currentColor;
+}
+
+.separar--marcada svg circle {
+  stroke: var(--esmalte);
+  stroke-width: 2;
+}
+
+/* Números e texto da plaqueta */
+
+.placa__numero {
+  font-size: 2.05rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+}
+
+.placa__andar {
+  margin-top: 0.15rem;
+  color: var(--esmalte-tinta-fraca);
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+.placa__categoria {
+  margin-top: 0.55rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Os mesmos três campos, na mesma ordem, em todas as plaquetas. */
+.dados {
+  margin: 0.85rem 0 0;
+  border-top: 1.5px solid var(--esmalte-tinta);
+  border-bottom: 1.5px solid var(--esmalte-tinta);
+  padding-block: 0.55rem;
+}
+
+.dados > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-block: 0.16rem;
+}
+
+.dados dt {
+  color: var(--esmalte-tinta-fraca);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.dados dd {
+  margin: 0;
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+/* Falta de espaco tem a sua propria tinta: o ambar. O vermelho e so do
+   carimbo de ocupado, e o verde so do convenio. */
+.nota-capacidade {
+  margin-top: 0.6rem;
+  color: #634d1b;
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+/* A diária é o elemento grande o bastante para vencer a densidade da plaqueta. */
+/* O preco ancora no rodape da plaqueta, entao todas as diarias de uma
+   fileira ficam na mesma linha, mesmo com fichas de alturas diferentes. */
+.diaria {
+  margin-top: auto;
+  padding-top: 0.85rem;
+  font-size: 2.45rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.diaria__nota {
+  color: var(--esmalte-tinta-fraca);
+  font-size: 0.76rem;
+}
+
+.diaria__convenio {
+  color: var(--carimbo-livre);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.acoes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding-top: 0.9rem;
+}
+
+/* Carimbo de borracha batido ao lado da diária, torto como todo carimbo
+   batido à mão. Fica no fluxo, então nunca cai em cima dos botões. */
+.carimbo {
+  align-self: flex-end;
+  margin-top: -1.35rem;
+  margin-right: 0.15rem;
+  padding: 0.1rem 0.55rem;
+  border: 3px solid var(--carimbo-ocupado);
+  border-radius: 3px;
+  color: var(--carimbo-ocupado);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.88;
+  transform: rotate(-8deg);
+}
+
+/* Com outra plaqueta escolhida, esta recua. Recua só a informação: o trilho, a
+   chave e os botões continuam em tinta cheia, porque continuam clicáveis. */
+.chaveiro--apagado .placa__numero,
+.chaveiro--apagado .placa__andar,
+.chaveiro--apagado .placa__categoria,
+.chaveiro--apagado .dados,
+.chaveiro--apagado .diaria,
+.chaveiro--apagado .diaria__nota,
+.chaveiro--apagado .diaria__convenio,
+.chaveiro--apagado .nota-capacidade,
+.chaveiro--apagado .separar,
+.chaveiro--apagado .carimbo {
+  opacity: 0.5;
+}
+
+.chaveiro--apagado .placa {
+  background-color: var(--esmalte-sombra);
+}
+
+.placa,
+.placa__numero,
+.dados,
+.diaria {
+  transition:
+    opacity 0.25s ease,
+    background-color 0.25s ease;
+}

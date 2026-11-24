@@ -1,0 +1,86 @@
+/* O rodapé é o balcão de madeira da recepção, embaixo da tábua das chaves. */
+.balcao {
+  margin-top: 4rem;
+  border-top: 3px solid var(--madeira-clara);
+  background-color: var(--madeira);
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0 6px,
+    rgba(0, 0, 0, 0.09) 6px 7px,
+    transparent 7px 19px
+  );
+  color: #f0e6da;
+}
+
+.balcao__conteudo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.5rem;
+  padding-block: 2.5rem;
+}
+
+.balcao__titulo {
+  margin-bottom: 0.9rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Linha pontilhada entre o evento e o horário, como num quadro de avisos. */
+.horarios li {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding-block: 0.32rem;
+  font-family: var(--fonte-ficha);
+  font-size: 0.87rem;
+}
+
+.horarios__pontos {
+  flex: 1;
+  border-bottom: 1px dotted rgba(240, 230, 218, 0.45);
+}
+
+.horarios__evento {
+  font-weight: 700;
+}
+
+.contato {
+  font-family: var(--fonte-ficha);
+  font-size: 0.87rem;
+  font-style: normal;
+}
+
+.contato a {
+  text-decoration-color: rgba(240, 230, 218, 0.4);
+  text-underline-offset: 0.25em;
+}
+
+.contato a:hover {
+  text-decoration-color: currentColor;
+}
+
+/* Aviso de que tudo na tela e material de demonstracao. */
+.balcao__aviso {
+  padding-bottom: 1rem;
+  color: #e0cdb8;
+  font-size: 0.8rem;
+}
+
+.balcao__rodape {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.4rem;
+  padding-block: 1.1rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.28);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 700px) {
+  .balcao__conteudo {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.75rem;
+  }
+}

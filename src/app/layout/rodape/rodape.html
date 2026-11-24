@@ -1,0 +1,38 @@
+<footer class="balcao" id="contato">
+  <div class="parede balcao__conteudo">
+    <section class="balcao__bloco">
+      <h2 class="balcao__titulo">No balcão</h2>
+      <ul class="horarios">
+        @for (item of horarios; track item.evento) {
+          <li>
+            <span class="horarios__evento">{{ item.evento }}</span>
+            <span class="horarios__pontos" aria-hidden="true"></span>
+            <span class="horarios__quando">{{ item.quando }}</span>
+          </li>
+        }
+      </ul>
+    </section>
+
+    <section class="balcao__bloco">
+      <h2 class="balcao__titulo">Onde estamos</h2>
+      <address class="contato">
+        <p>{{ endereco }}</p>
+        <p>{{ cidade }}</p>
+        <p><a [href]="'tel:' + telefone">{{ telefone }}</a></p>
+        <p><a [href]="'mailto:' + email">{{ email }}</a></p>
+      </address>
+    </section>
+  </div>
+
+  <div class="parede balcao__aviso">
+    <p>
+      Hotel fictício. Nome, endereço, telefone, preços e fotografias são material de demonstração
+      de um trabalho acadêmico.
+    </p>
+  </div>
+
+  <div class="parede balcao__rodape">
+    <p>{{ nomeHotel }} · {{ anoAtual }} · Trabalho acadêmico em Angular</p>
+    <p>Felipe Eduardo Sfolias Stachak</p>
+  </div>
+</footer>

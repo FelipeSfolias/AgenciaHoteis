@@ -1,0 +1,24 @@
+<header class="recepcao" id="topo">
+  <div class="parede recepcao__conteudo">
+    <!-- A placa esmaltada parafusada na parede da recepção. -->
+    <a class="placa-casa" href="#topo">
+      <span class="placa-casa__nome">{{ nomeHotel }}</span>
+      <span class="placa-casa__cidade">{{ cidade }}</span>
+    </a>
+
+    <nav class="menu" aria-label="Navegação principal">
+      @for (item of menu; track item.destino) {
+        <a class="menu__link" [href]="item.destino">{{ item.titulo }}</a>
+      }
+    </nav>
+
+    <div class="convenio">
+      @if (convenioAtivo) {
+        <span class="convenio__aviso">Convênio de {{ nomeHospede }} ativo</span>
+      }
+      <button class="botao-latao" type="button" (click)="clicarConvenio()">
+        {{ convenioAtivo ? 'Encerrar convênio' : 'Entrar com convênio' }}
+      </button>
+    </div>
+  </div>
+</header>

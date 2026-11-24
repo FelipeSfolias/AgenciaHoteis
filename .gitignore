@@ -1,0 +1,26 @@
+# Compiled output
+/dist
+/tmp
+/out-tsc
+
+# Node
+/node_modules
+npm-debug.log
+
+# IDEs and editors
+.idea/
+.vscode/
+
+# Miscellaneous
+/.angular/cache
+.sass-cache/
+/coverage
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Artefatos da ferramenta de design (nao fazem parte da entrega)
+/.impeccable
+/PRODUCT.md
+/DESIGN.md

@@ -1,0 +1,68 @@
+<article class="ficha">
+  <header class="ficha__topo">
+    <h2 class="ficha__quarto">Quarto {{ quarto.numero }}</h2>
+    <button class="ficha__fechar" type="button" aria-label="Fechar a ficha" (click)="fechar.emit()">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
+    </button>
+  </header>
+
+  <figure class="ficha__foto">
+    <img [src]="quarto.imagem" [alt]="'Quarto ' + quarto.numero + ' do hotel'" />
+  </figure>
+
+  <p class="ficha__descricao">{{ quarto.descricao }}</p>
+
+  <section class="campos">
+    <div class="campo">
+      <span class="campo__nome">Categoria</span>
+      <span class="campo__valor">{{ quarto.categoria }}</span>
+    </div>
+    <div class="campo">
+      <span class="campo__nome">Andar</span>
+      <span class="campo__valor">{{ quarto.andar }}</span>
+    </div>
+    <div class="campo">
+      <span class="campo__nome">Acomodação</span>
+      <span class="campo__valor">{{ quarto.camas }}</span>
+    </div>
+    <div class="campo">
+      <span class="campo__nome">Hóspedes</span>
+      <span class="campo__valor">{{ hospedes }} de {{ quarto.capacidade }}</span>
+    </div>
+    <div class="campo">
+      <span class="campo__nome">Diárias</span>
+      <span class="campo__valor">{{ diarias }}</span>
+    </div>
+    <div class="campo campo--total">
+      <span class="campo__nome">Total</span>
+      <span class="campo__valor">{{ total | currency: 'BRL' }}</span>
+    </div>
+  </section>
+
+  <section class="incluso">
+    <h3 class="ficha__secao">Incluso na diária</h3>
+    <ul>
+      @for (beneficio of quarto.beneficios; track beneficio) {
+        <li>{{ beneficio }}</li>
+      } @empty {
+        <li class="incluso__vazio">Nada além da hospedagem.</li>
+      }
+    </ul>
+  </section>
+
+  @if (convenioAtivo) {
+    <p class="recado recado--bom">Desconto de convênio de 10% já lançado no total.</p>
+  } @else {
+    <p class="recado">Entre com o convênio da empresa e o total cai 10%.</p>
+  }
+
+  @if (!quarto.disponivel) {
+    <p class="recado recado--ruim">
+      A chave do {{ quarto.numero }} está fora do gancho. Devolva a chave para reservar de novo.
+    </p>
+  } @else if (!cabeOGrupo) {
+    <p class="recado recado--atencao">
+      Este quarto acomoda {{ quarto.capacidade }} pessoas e você marcou {{ hospedes }} no balcão.
+    </p>
+  }
+</article>

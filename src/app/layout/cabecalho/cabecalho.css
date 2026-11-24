@@ -1,0 +1,106 @@
+:host {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: block;
+}
+
+.recepcao {
+  border-bottom: 1px solid var(--tabua-sulco);
+  background-color: var(--tabua-fundo);
+  box-shadow: 0 1px 0 var(--tabua-aresta);
+}
+
+.recepcao__conteudo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-block: 0.85rem;
+}
+
+/* ---- Placa esmaltada com o nome da casa ---- */
+
+.placa-casa {
+  display: inline-flex;
+  flex-direction: column;
+  padding: 0.4rem 0.9rem;
+  border: 2px solid var(--esmalte-aro);
+  border-radius: 3px;
+  background-color: var(--esmalte);
+  color: var(--esmalte-tinta);
+  text-decoration: none;
+  /* O brilho do esmalte: uma faixa clara na diagonal do canto superior. */
+  background-image: linear-gradient(155deg, #ffffff 0%, transparent 42%);
+  box-shadow: inset 0 0 0 1px var(--esmalte);
+}
+
+.placa-casa__nome {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+}
+
+.placa-casa__cidade {
+  color: var(--esmalte-tinta-fraca);
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+
+/* ---- Menu ---- */
+
+.menu {
+  display: flex;
+  gap: 1.9rem;
+}
+
+.menu__link {
+  color: var(--sobre-tabua-fraco);
+  font-size: 0.88rem;
+  font-weight: 500;
+  text-decoration: none;
+  text-underline-offset: 0.3em;
+  transition: color 0.15s ease;
+}
+
+.menu__link:hover {
+  color: var(--latao-claro);
+  text-decoration: underline;
+}
+
+/* ---- Convênio ---- */
+
+.convenio {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.convenio__aviso {
+  color: var(--sobre-tabua-fraco);
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  .recepcao__conteudo {
+    flex-wrap: wrap;
+    row-gap: 0.7rem;
+  }
+
+  .menu {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    gap: 1.5rem;
+    border-top: 1px solid var(--tabua-sulco);
+    padding-top: 0.7rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .convenio__aviso {
+    display: none;
+  }
+}

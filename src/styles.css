@@ -1,0 +1,242 @@
+/* ==========================================================================
+   Hotel Marrecas — estilos globais.
+
+   O site imita o quadro de chaves da recepção: uma tábua de madeira pintada
+   a óleo, ganchos de latão, plaquetas esmaltadas e a ficha de hospedagem em
+   papel. Cada material abaixo é uma variável de cor.
+   ========================================================================== */
+
+:root {
+  /* Tábua pintada a óleo */
+  --tabua: #173f4a;
+  --tabua-fundo: #102b33;
+  --tabua-aresta: #245f6d;
+  --tabua-sulco: #0b1f25;
+
+  /* Plaqueta esmaltada */
+  --esmalte: #f4f1e9;
+  --esmalte-sombra: #dcd7c9;
+  --esmalte-aro: #1b3a8f;
+  --esmalte-tinta: #16233f;
+  --esmalte-tinta-fraca: #5a6478;
+
+  /* Latão dos ganchos e das chaves */
+  --latao: #b08d3f;
+  --latao-claro: #d9bc72;
+  --latao-escuro: #7d6224;
+
+  /* Ficha de hospedagem em papel */
+  --papel: #f2ede2;
+  --papel-linha: #cabfa6;
+  --papel-tinta: #24211c;
+  --papel-tinta-fraca: #5f5849;
+
+  /* Balcão de madeira */
+  --madeira: #6b4a2e;
+  --madeira-clara: #8a6440;
+
+  /* Carimbos: cada estado tem a sua tinta e ela não aparece em mais nada */
+  --carimbo-ocupado: #9e2b20;
+  --carimbo-livre: #2e6b3e;
+  --anel-separado: #b0242c;
+
+  /* Texto sobre a tábua */
+  --sobre-tabua: #f0eee6;
+  --sobre-tabua-fraco: #9dbac2;
+
+  /* Tipografia: Archivo é o que está pintado ou esmaltado na tábua,
+     Courier Prime é o que foi preenchido na ficha de papel. */
+  --fonte-placa: 'Archivo', 'Arial Narrow', Arial, sans-serif;
+  --fonte-ficha: 'Courier Prime', 'Courier New', monospace;
+
+  --curva-mola: cubic-bezier(0.2, 0.9, 0.3, 1);
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+
+body {
+  margin: 0;
+  /* A tábua tem veio de madeira e desgaste: dois riscos finos repetidos. */
+  background-color: var(--tabua);
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 3px,
+      rgba(11, 31, 37, 0.16) 3px 4px,
+      transparent 4px 11px
+    ),
+    linear-gradient(180deg, var(--tabua-aresta) 0 2px, var(--tabua) 2px 100%);
+  color: var(--sobre-tabua);
+  font-family: var(--fonte-placa);
+  font-size: 1rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: clamp(1.9rem, 4vw, 2.9rem);
+}
+
+h2 {
+  font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+}
+
+p {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+/* O foco do teclado é um fio de latão, do mesmo material dos ganchos. */
+:focus-visible {
+  outline: 2px solid var(--latao-claro);
+  outline-offset: 2px;
+}
+
+::selection {
+  background-color: var(--latao);
+  color: #ffffff;
+}
+
+::-webkit-scrollbar {
+  width: 13px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--tabua-fundo);
+}
+
+::-webkit-scrollbar-thumb {
+  border: 4px solid var(--tabua-fundo);
+  border-radius: 999px;
+  background-color: var(--latao-escuro);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--latao);
+}
+
+/* ---- Reaproveitado por mais de um componente ---- */
+
+.parede {
+  width: min(1220px, 100% - 3rem);
+  margin-inline: auto;
+}
+
+/* Botão pintado na plaqueta: fundo do esmalte, borda de tinta. */
+.botao-placa {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.95rem;
+  border: 1.5px solid var(--esmalte-tinta);
+  border-radius: 2px;
+  background-color: transparent;
+  color: var(--esmalte-tinta);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.botao-placa:hover {
+  background-color: var(--esmalte-tinta);
+  color: var(--esmalte);
+}
+
+.botao-placa--cheio {
+  background-color: var(--esmalte-tinta);
+  color: var(--esmalte);
+}
+
+.botao-placa--cheio:hover {
+  background-color: var(--esmalte-aro);
+  border-color: var(--esmalte-aro);
+}
+
+.botao-placa:disabled {
+  border-color: var(--esmalte-sombra);
+  background-color: var(--esmalte-sombra);
+  color: var(--esmalte-tinta-fraca);
+  cursor: not-allowed;
+}
+
+/* Botão de latão, usado sobre a tábua. */
+.botao-latao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 1.1rem;
+  border: 1.5px solid var(--latao);
+  border-radius: 2px;
+  background-color: transparent;
+  color: var(--latao-claro);
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.botao-latao:hover {
+  background-color: var(--latao);
+  color: var(--tabua-fundo);
+}
+
+@media (max-width: 640px) {
+  .parede {
+    width: min(1220px, 100% - 1.75rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
